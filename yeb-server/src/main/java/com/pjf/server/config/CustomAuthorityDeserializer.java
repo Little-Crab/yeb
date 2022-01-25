@@ -1,0 +1,38 @@
+package com.pjf.server.config;
+
+import cn.hutool.json.JSON;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.TreeNode;
+import com.fasterxml.jackson.databind.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
+
+/**
+ * @author pjf
+ * @Date 2022/1/13 16:51
+ * 自定义反序列化
+ **/
+public class CustomAuthorityDeserializer extends JsonDeserializer {
+
+
+    @Override
+    public Object deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+        ObjectMapper mapper = (ObjectMapper) p.getCodec();
+        JsonNode jsonNode = mapper.readTree(p);
+        List<GrantedAuthority> grantedAuthorities = new LinkedList<>();
+        Iterator<JsonNode> elements = jsonNode.elements();
+        while (elements.hasNext()) {
+            JsonNode next = elements.next();
+            JsonNode authority = next.get("authority");
+            grantedAuthorities.add(new SimpleGrantedAuthority(authority.asText()));
+        }
+        return grantedAuthorities;
+    }
+}

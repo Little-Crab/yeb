@@ -1,0 +1,40 @@
+server:
+  port: 8082
+spring:
+  mail:
+    host: smtp.163.com
+    protocol: smtp
+    default-encoding: UTF-8
+    password: BOOLIEBZDKVJVJQN
+    username: 15236067080@163.com
+    port: 25
+    jndi-name:
+  redis:
+    #超时时间
+    timeout: 10000ms
+    #服务器地址
+    host: 118.31.77.208
+    #端口号
+    port: 6379
+    #数据库
+    database: 0
+    #密码
+    password: 123456
+    lettuce:
+      pool:
+        #最大连接数
+        max-active: 1024
+        #最大连接阻塞等待时间，默认-1
+        max-wait: 1000ms
+        #最大空闲连接
+        max-idle: 200
+        #最小空闲连接
+        min-idle: 5
+  rabbitmq:
+    username: root
+    password: root
+    host: 118.31.77.208
+    port: 5672
+    listener:
+      simple:
+        acknowledge-mode: manual
