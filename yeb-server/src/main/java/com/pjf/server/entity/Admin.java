@@ -45,7 +45,6 @@ public class Admin implements Serializable, UserDetails {
 
     @ApiModelProperty("手机号码")
     private String phone;
-
     @ApiModelProperty("住宅电话")
     private String telephone;
 
